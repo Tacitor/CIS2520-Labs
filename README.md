@@ -17,11 +17,35 @@ The purpose of this lab is to let you get familiar with the tools we will use in
 
 # Lab Activities
 
-## Part 1: Gitlab
+## Part 1: ssh
+
+Log in to the linux.socs machines using `ssh`.  You likely did this last year in order to work on code.
+
+## Part 2: Gitlab
 
 This part should only take you a moment or two.  We simply want to take you through the steps of **modifying** a file and **checking the changes in** to your gitlab repository.
 
-Here are the steps:
+### Checking out your repository
+
+You will need to **clone** a repository for each lab and assignment in this course.  We get the repositories from the tool `gitlab` which is much like "github" except run within the department.  (Keeping things in the department avoids problems with permissions, and ensures that no who shouldn't see your assignment can.)
+
+The URL for gitlab is [https://gitlab.socs.uoguelph.ca](https://gitlab.socs.uoguelph.ca)
+
+* Open that in a browser and log in.  Once there you should see a list of "Projects".  Open the one ending in "Lab1".  
+
+* There should be a blue button marked "Clone" -- click it and click the clipboard beside the value marked "Clone with HTTPS".  This puts the URL for your personal repo in your cut-and-paste clipboard.
+
+* On the linux.socs environment, create a directory for this course, cd into the directory, and use `git clone`:
+
+	$ mkdir CIS2520
+	$ cd CIS2520
+	$ git clone <paste your URL here>
+
+* You should now have a directory called "Lab1" inside this workspace
+
+
+### Working in your repository
+Once you have your repository checked out, here are the steps to get your changes recorded:
 
 1) **Modify a file**: add your name at the top of this README file
 	* *Why do this?* This action creates a modification to a file.  For labs and assignments in this course you will be submitting your modifications for grading.
@@ -73,7 +97,7 @@ Here are the steps:
 	* It is important that you are comfortable doing these `commit` and `push` operations because this is how you will be submitting your assignments and labs.  Code that you have `push`ed can be viewed by the TAs which may also be useful when asking for help.
 
 
-## Part 2: C programming
+## Part 3: C programming -- building programs
 
 You have been given a C program that has a memory error.  It is a pretty
 common memory error, so the intention of this portion of the lab is
@@ -126,6 +150,10 @@ importantly recognize what to do about it.
 	```
 	./lab1 tinydata.txt
 	```
+
+## Part 4: If time permits (optional activity)
+
+If there is still time available in the lab, we can try and solve the problem.  If you have run out of time, don't worry about it, as we will pick up this kind of problem again next week, now that we have our environment set up.
 
 ### Recognizing the problem
 
@@ -188,22 +216,23 @@ There is a **very common memory error** in this program.  If you think about tha
 
 * There is a script to run `valgrind(1)` to check for memory errors
 
-# CLUES:
+### CLUES:
 
 * **Think about** what can be causing this
 * Data is being loaded, but not properly available to the **parent function**
 * The `valgrind` program reports that there are "uninitialised value(s)" that are being examined -- what does that mean?  **This is a very significant clue**
 
-## STRONG HINT
+#### STRONG HINT
 
 * on lines 85-92 of `dataReader.c` we have pointers that clearly point at the right value, but this value is not appearing in the `valuebuffer` variable in `loadDataTable()` at line 35 of `mainline.c`
 * What ***SHOULD*** be happening in the call to `loadDataTable()` to allow the value to appear?  What ***IS*** happening?  Are these the same?
 
-# Lab submission
+### Lab code submission
+
+This is simply a repeat of what we did in part 2 -- we `commit` and `push` our code.
 
 1) First, verify that your code works properly
 2) **Be sure to both** `commit` and `push` the results to gitlab for grading.
 	* A `commit` checks in your changes locally
 	* A `push` actually copies the changes into the gitlab repository where the TAs can see it
-3) Answer the questions in the Courselink Quiz called "Lab 1: gitlab and memory debugging"
 
