@@ -87,7 +87,8 @@ drReadDataLine(
 	/**
 	 * QUESTION: is this the right way to assign this?
 	 */
-	value = cleanedValue;
+	//value = cleanedValue;
+	strcpy(value, cleanedValue);
 
 	printf("DBG: in \"read\" - key/value are '%d/%s'\n",
 			*key, value);
