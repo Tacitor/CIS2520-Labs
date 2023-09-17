@@ -1,0 +1,6 @@
+here is a line with no escapes
+this line\nshould have a newline in the middle
+how \"about some quotes?\",\t\'quotes are fun\'
+
+this line should continue \
+	onto the next line
