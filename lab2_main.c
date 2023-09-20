@@ -62,6 +62,9 @@ static int processWordsInFile(
 		return 0;
 	}
 
+	//print the header
+	fprintf(outputFP, "Words of lenth %d, from %s\n", wordLengthToPrint, filename);
+
 	// read each word from the file using the WordExtractor,
 	// and print it out
 
@@ -79,7 +82,9 @@ static int processWordsInFile(
 			{
 				makeLower(aWord);
 			}
-			printf("%s\n", aWord);
+			// printf("%s\n", aWord);
+			// print to file or stdout if that is the provided file pointer
+			fprintf(outputFP, "%s\n", aWord);
 		}
 	}
 
@@ -182,6 +187,36 @@ int main(int argc, char **argv)
 				// increment to the next arg so it doesn't get processed as a file
 				i++;
 			}
+			else if (argv[i][1] == 'o')
+			{
+				// grab the file name
+				i++;
+
+				// only allow one custom output file
+				// test if there is a custom output file
+				if (outputFP == stdout)
+				{
+					// Output to file
+					// try and create a file pointer to this provided location
+					FILE *userOutputFP = fopen(argv[i], "w");
+
+					// check if this worked
+					if (userOutputFP == NULL)
+					{
+						printf("Bad argument for -o\n");
+						return -1; // exit(-1)
+					}
+					else
+					{
+						// set this to the output
+						outputFP = userOutputFP;
+					}
+				}
+				else
+				{
+					printf("Only one invocation -o allowed. Ignoring %s\n", argv[i]);
+				}
+			}
 		}
 		else
 		{
@@ -189,7 +224,7 @@ int main(int argc, char **argv)
 
 			// Take a look at processWordsInFile() to actually do the
 			// work -- it is defined above.
-			processWordsInFile(NULL,
+			processWordsInFile(outputFP,
 							   argv[i],
 							   wordExtractorMaxLength,
 							   wordLengthToPrint,
@@ -214,6 +249,13 @@ int main(int argc, char **argv)
 				"No data processed! "
 				"Did you forget to tell me what file to look at?\n");
 		printHelp();
+	}
+
+	// test if there is a custom output file
+	if (outputFP != NULL && outputFP != stdout)
+	{
+		// close the current file and
+		fclose(outputFP);
 	}
 
 	return 0;
