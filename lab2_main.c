@@ -7,18 +7,18 @@
 #include "word_extractor.h"
 
 /** set up our default length */
-#define	DEFAULT_WORD_EXTRACTOR_MAX_LENGTH	64
-#define	DEFAULT_PRINT_LENGTH	4
+#define DEFAULT_WORD_EXTRACTOR_MAX_LENGTH 64
+#define DEFAULT_PRINT_LENGTH 4
 
 /**
  *	Force a string to uppercase, in place
  */
-void
-makeUpper(char *s)
+void makeUpper(char *s)
 {
 	/* loop until the end of the string, making each character
 	 * the uppercase version of itself (if there is one) */
-	while (*s != '\0') {
+	while (*s != '\0')
+	{
 		*s = toupper(*s);
 		s++;
 	}
@@ -27,12 +27,12 @@ makeUpper(char *s)
 /**
  *	Force a string to lowercase, in place
  */
-void
-makeLower(char *s)
+void makeLower(char *s)
 {
 	/* loop until the end of the string, making each character
 	 * the lowercase version of itself (if there is one) */
-	while (*s != '\0') {
+	while (*s != '\0')
+	{
 		*s = tolower(*s);
 		s++;
 	}
@@ -42,14 +42,13 @@ makeLower(char *s)
  * Process the given file, writing the words of the indicated length
  * only to the indicated file pointer
  */
-static int
-processWordsInFile(
-		FILE *outputFP,
-		char *filename,
-		int wordExtractorMaximumLength,
-		int wordLengthToPrint,
-		int forceUppercase,
-		int forceLowercase)
+static int processWordsInFile(
+	FILE *outputFP,
+	char *filename,
+	int wordExtractorMaximumLength,
+	int wordLengthToPrint,
+	int forceUppercase,
+	int forceLowercase)
 {
 	struct WordExtractor *wordExtractor = NULL;
 	char *aWord = NULL;
@@ -57,7 +56,8 @@ processWordsInFile(
 	// create the extractor and open the file
 	wordExtractor = weCreateExtractor(filename, wordExtractorMaximumLength);
 
-	if (wordExtractor == NULL) {
+	if (wordExtractor == NULL)
+	{
 		fprintf(stderr, "Failed creating extractor for '%s'\n", filename);
 		return 0;
 	}
@@ -65,14 +65,18 @@ processWordsInFile(
 	// read each word from the file using the WordExtractor,
 	// and print it out
 
-	while (weHasMoreWords(wordExtractor)) {
+	while (weHasMoreWords(wordExtractor))
+	{
 		aWord = weGetNextWord(wordExtractor);
 
-		if (strlen(aWord) == wordLengthToPrint) {
-			if (forceUppercase) {
+		if (strlen(aWord) == wordLengthToPrint)
+		{
+			if (forceUppercase)
+			{
 				makeUpper(aWord);
 			}
-			if (forceLowercase) {
+			if (forceLowercase)
+			{
 				makeLower(aWord);
 			}
 			printf("%s\n", aWord);
@@ -85,8 +89,7 @@ processWordsInFile(
 	return 1;
 }
 
-static void
-printHelp()
+static void printHelp()
 {
 	fprintf(stderr, "Prints out words of a given length to the indicated output stream.\n");
 	fprintf(stderr, "\n");
@@ -108,13 +111,11 @@ printHelp()
 /**
  * Program mainline
  */
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	FILE *outputFP = stdout;
 	int wordExtractorMaxLength = DEFAULT_WORD_EXTRACTOR_MAX_LENGTH;
 	int filesProcessed = 0;
-
 
 	// Change this to be your own code.
 	//
@@ -122,8 +123,8 @@ main(int argc, char **argv)
 	// work -- it is defined above.
 	printf("I don't know what to do!  Please help me!\n");
 
-
-	if ( filesProcessed == 0) {
+	if (filesProcessed == 0)
+	{
 		fprintf(stderr,
 				"No data processed! "
 				"Did you forget to tell me what file to look at?\n");
