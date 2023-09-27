@@ -1,0 +1,10 @@
+a \'quoted\' line
+a line with a new\nline in the middle
+
+that ^^^ was a blank line
+contin\
+uation
+this line \
+continues to the next one \
+twice
+tab\ttab\ttab
