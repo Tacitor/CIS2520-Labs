@@ -56,16 +56,43 @@ convertLinesInFile(char *filename)
 	/** loop, reading one character at a time, until we get
 	 * to the end of the file */
 	while ((c = getc(ifp)) != EOF) {
-		if (c == '\\') {
+		if (c == '\\' && !isInEscape) {
 			/** flag that we just saw an escape character */
 			isInEscape = 1;
 		} else {
 
 			/**
-			 *  TO DO -- add your code here.
+			 *  My code was added here for haneling escape characters
 			 */
+			if (isInEscape) {
+
+				//special cases for the escaped characters
+				if (c == 'n') //new line
+				{
+					putc(10, stdout);
+				} else if (c == 10) //if the char to escape its meaning is an actual new line char
+				{
+					//do nothing
+				} else if (c == 't') //if the char to escape its meaning is a tab char
+				{
+					//do a tab
+					putc('\t', stdout);
+				}
+				else {
+					putc(c, stdout);
+				}
+
+
+				//now done escaping
+				isInEscape = 0;
+
+			} else if (c == 10) //check for an actually new line character
+			{
+				printLineLeader(++lineNumber);
+			} else {
 			
-			putc(c, stdout);
+				putc(c, stdout);
+			}
 		}
 	}
 

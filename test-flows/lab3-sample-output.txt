@@ -1,0 +1,12 @@
+
+   1 >:a 'quoted' line
+   2 >:a line with a new
+line in the middle
+   3 >:
+   4 >:that ^^^ was a blank line
+   5 >:continuation
+   6 >:this line continues to the next one twice
+   7 >:tab	tab	tab
+   8 >:
+
+DONE
