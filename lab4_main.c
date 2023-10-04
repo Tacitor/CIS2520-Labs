@@ -47,6 +47,16 @@ int myFindLongestStringNode(GenericListNode *node, int index, void *userdata)
 	 *   set of nodes.
 	 */
 
+	// test to see if the current string is longer than the stored string
+	if (strlen((char *)(node->data)) > ((struct maxData *)userdata)->maxLenSoFar)
+	{
+		// set the new length
+		((struct maxData *)userdata)->maxLenSoFar = strlen((char *)(node->data));
+
+		// set the string this came from
+		((struct maxData *)userdata)->maxStringSoFar = (char *)(node->data);
+	}
+
 	return 1;
 }
 
