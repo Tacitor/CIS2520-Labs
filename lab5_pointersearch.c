@@ -20,18 +20,17 @@ pointerComparator_LatinName(const void *vKey, const void *vData)
 {
 	FruitData **fruitData = NULL;
     char *key = NULL;
-    int result = 0;
+    int result;
 
 	printf(" = = pointerComporator_LatinName: vKey = %p, vData = %p\n", vKey, vData);
 
 
-	// TO DO:
 	// Get the key and data from the void pointers.  Keep in mind the
 	// data is now a "pointer to pointer"
+	key  = (char *) vKey;
+	fruitData = (FruitData **) vData;
 
 
-
-	// TO DO:
 	// Compare the key to the "latin" field in the data referenced
 	// by the pointer that the *data" passed in here *points at*.
 	//
@@ -41,6 +40,10 @@ pointerComparator_LatinName(const void *vKey, const void *vData)
 	// It probably will help if you first print out the key and
 	// the data fields first, so you know that you have the dereferencing
 	// correct.
+	printf(" = = structComporator_CommonName: key = %s\n", key);
+	printf(" = = structComporator_CommonName: fruit = %s, %s\n",
+            (*fruitData)->common, (*fruitData)->latin);
+
 	//
 	// Hint: it may be clearer to you if you dereference the pointer
 	// iyou get (i.e.; with a '*') and store that value before trying
@@ -51,6 +54,9 @@ pointerComparator_LatinName(const void *vKey, const void *vData)
 	//
 	// If you are having trouble, consider the memory addresses values
 	// you see in the vKey and vData above.
+	result = strcmp(key, (*fruitData)->latin);
+	printf(" = = structComparator_CommonName: comparison of (%s/%s) returns %d\n",
+            key, (*fruitData)->common, result);
 
 
     return result;
@@ -67,16 +73,16 @@ searchInLatinName(FruitData * const *fruitDataPointers, int nFruits, char *key)
 
 
 	printf("Demonstration of comparator (comparing key to first data element):\n");
-	printf("Entering binary search.\n");
 	pointerComparator_LatinName(key, fruitDataPointers);
 
 
 	printf("Entering binary search.\n");
 
-	// TO DO:
 	// Call the binary search with the array of pointers to pointers
 	// to the data, the appropriate size, and the comparator above
-
+	pointerResult = binarysearch(
+			key, fruitDataPointers, nFruits, sizeof(FruitData *),
+			pointerComparator_LatinName);
 
 	if (pointerResult != NULL) {
 		arrayIndex = pointerResult - fruitDataPointers;
