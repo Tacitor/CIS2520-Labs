@@ -1,0 +1,7 @@
+one
+line\ntwo
+\"?\",\t\'q\'E
+
+con\
+tinue
+last
