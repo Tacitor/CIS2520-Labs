@@ -1,0 +1,5 @@
+*.fasta
+*.o
+.*.swp
+lab6
+tags
